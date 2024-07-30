@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
+from tkinter import messagebox 
 from tkinter import filedialog
 import os
 import pandas as pd
@@ -8,9 +8,10 @@ import pandas as pd
 # Configuración
 #resort = r'Y:\1. JO EXPORT OFICINA TECNICA\1. ESCALADOS JOHANNA ORTIZ\2025\\RESORT 25\RE RTW25\PATRONES'
 coleccion = ""
-archivo_salida = r'D:\JEFERSON STUDY\Javascript - Jonmircha\Status.xlsx'
+archivo_salida = r'D:\JEFERSON STUDY\JO-System\JO-System-v.1.0\Status.xlsx'
 
 # Funciones para buscar PDFs
+
 def conEntregableIdea(coleccion):    
     referencias_con_entregable_swim = []
 
@@ -117,10 +118,8 @@ def buscar_archivos():
     global coleccion
     if not coleccion:
         #messagebox.showwarning("Advertencia", "Es necesario elegir una colección.")
-        lbl_status.config(text="Es necesario elegir una colección.", fg="red")
-    else:
-        # Aquí puedes colocar la lógica para buscar archivos en el directorio seleccionado
-        #print(f"Buscando en el directorio: {coleccion}")
+        lbl_status.config(text="Es necesario elegir una colección o carpeta.", fg="red")
+    else:        
         lbl_status.config(text="buscando en: ", fg="green")
         ejecutar_programa()
 
