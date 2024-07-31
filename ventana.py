@@ -14,16 +14,19 @@ archivo_salida = r'D:\JEFERSON STUDY\JO-System\JO-System-v.1.0\Status.xlsx'
 
 def conEntregableIdea(coleccion):    
     referencias_con_entregable_swim = []
+    contador = 0
 
     try:
         for root, dirs, files in os.walk(coleccion):
-            for file in files:
+            for file in files:                              
                 if file.endswith('.pdf') and 'consumo' in file.lower():
+                    contador += 1
                     ultimo_nombre_carpeta2 = os.path.basename(root)
                     referencias_con_entregable_swim.append(ultimo_nombre_carpeta2)
-                    break
-        
+                    break        
         df2 = pd.DataFrame(referencias_con_entregable_swim, columns=['coleccion -Con Entregable'])
+        #largoList= referencias_con_entregable_swim.count
+        #print(f"Se encontraron {largoList} referencias en la carpeta: {coleccion}.")
         return df2
 
     except FileNotFoundError:
@@ -39,11 +42,13 @@ def conEntregableIdea(coleccion):
 
 def sinEntregableIdea(coleccion):    
     referencias_sin_entregable_swim = []
+    contador = 0
     
     for root, dirs, files in os.walk(coleccion):
         encontrado = False
         for file in files:
             if file.endswith('.pdf') and 'consumo' in file.lower():
+                contador += 1
                 encontrado = True
                 break
         if not encontrado:
@@ -51,20 +56,25 @@ def sinEntregableIdea(coleccion):
             referencias_sin_entregable_swim.append(ultimo_nombre_carpeta)
 
     df2 = pd.DataFrame(referencias_sin_entregable_swim, columns=['coleccion -Sin Entregable'])
+    #largoList= referencias_sin_entregable_swim.count
+    #print(f"Se encontraron {largoList} referencias en la carpeta: {coleccion}.")
     return df2
 
 def conTrazo(coleccion):   
     referencias_con_trazo_swim = []
+    contador = 0
 
     try:
         for root, dirs, files in os.walk(coleccion):
             for file in files:
                 if file.endswith('.amkx'):
+                    contador += 1
                     ultimo_nombre_carpeta2 = os.path.basename(root)
                     referencias_con_trazo_swim.append(ultimo_nombre_carpeta2)
                     break
         
         df2 = pd.DataFrame(referencias_con_trazo_swim, columns=['coleccion - Con trazo'])
+        print(f"Se encontraron {contador} referencias en la carpeta: {coleccion}.")
         return df2
 
     except FileNotFoundError:
@@ -78,11 +88,13 @@ def conTrazo(coleccion):
 
 def sinTrazo(coleccion):
     referencias_sin_trazo_swim = []
+    contador = 0
     
     for root, dirs, files in os.walk(coleccion):
         encontrado = False
         for file in files:
             if file.endswith('.amkx'):
+                contador += 1
                 encontrado = True
                 break
         if not encontrado:
@@ -90,6 +102,7 @@ def sinTrazo(coleccion):
             referencias_sin_trazo_swim.append(ultimo_nombre_carpeta2)        
     
     df2 = pd.DataFrame(referencias_sin_trazo_swim, columns=['coleccion - Sin Trazo'])
+    print(f"Se encontraron {contador} referencias en la carpeta: {coleccion}.")
     return df2
 
 
