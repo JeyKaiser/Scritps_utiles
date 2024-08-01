@@ -7,7 +7,6 @@ import subprocess
 
 # Configuración
 coleccion = ""
-largoListConEntregable = ""
 archivo_salida = r'D:\JEFERSON STUDY\JO-System\JO-System-v.1.0\Status.xlsx'
 
 # Funciones para buscar PDFs
@@ -171,7 +170,8 @@ def ejecutar_programa():
         lbl_status.config(text="Seleccione al menos 1 opción.", fg="red")
 
 
-#________________________________________________________________________________
+"""_________________cambios en JO_________________"""
+
 # Crear la ventana principal
 ventana = tk.Tk()
 ventana.title("Status Explosion")
@@ -226,7 +226,7 @@ frame_message = ttk.Frame(ventana, padding=10, style='TFrame')
 frame_message.pack(side=tk.TOP, padx=(10,10), pady=(10,10))
 
 # Crear una etiqueta para mostrar el estado de la ejecución
-lbl_status = tk.Label(text=" - - >   B I E N V E N I D O   < - -", bg="#dddee6")
+lbl_status = tk.Label(text="- - - - - >   B I E N V E N I D O   < - - - - -", bg="#dddee6")
 lbl_status.pack(side=tk.TOP, fill="x", pady=5)
 
 # Ejecutar el bucle principal de la interfaz gráfica
