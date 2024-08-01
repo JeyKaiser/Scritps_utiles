@@ -169,6 +169,11 @@ def ejecutar_programa():
     else:
         lbl_status.config(text="Seleccione al menos 1 opción.", fg="red")
 
+        
+def update_numeric_value(value):
+    label_numeric.config(text=str(value))
+
+
 
 """_________________cambios en JO_________________"""
 
@@ -176,7 +181,7 @@ def ejecutar_programa():
 ventana = tk.Tk()
 ventana.title("Status Explosion")
 ventana.configure(bg="#D7DBDD")
-ventana.geometry("300x400")
+ventana.geometry("300x450")
 
 # Estilo
 style = ttk.Style()
@@ -197,11 +202,15 @@ entrada_directorio.pack()
 
 # Crear un frame para los checkboxes
 frame_checkboxes = tk.Frame(ventana, bg="#D7DBDD", padx=20, pady=20)
-frame_checkboxes.pack(side=tk.TOP)
+frame_checkboxes.pack(side='top', pady=20, padx=(20, 0), fill='y')
 chk_state1 = tk.BooleanVar()
 chk_state2 = tk.BooleanVar()
 chk_state3 = tk.BooleanVar()
 chk_state4 = tk.BooleanVar()
+
+# Create a frame for the numeric value
+frame_numeric = tk.Frame(ventana, bg="#dcdcdc", bd=1, relief="groove")
+frame_numeric.pack(side='right', pady=20, padx=(0, 20), fill='y')
 
 # Crear checkboxes
 chk1 = tk.Checkbutton(frame_checkboxes, text="Con Entregable", var=chk_state1, bg="#D7DBDD")
@@ -212,6 +221,10 @@ chk3 = tk.Checkbutton(frame_checkboxes, text="Con Trazo", var=chk_state3, bg="#D
 chk3.pack(anchor="w")
 chk4 = tk.Checkbutton(frame_checkboxes, text="Sin Trazo", var=chk_state4, bg="#D7DBDD")
 chk4.pack(anchor="w")
+
+# Create a label for the numeric value
+label_numeric = tk.Label(frame_numeric, text="0", font=("Arial", 24), bg="#dcdcdc")
+label_numeric.pack(side='top', expand=True)
 
 # Crear un frame para boton
 frame_buttons = tk.Frame(ventana, bg="#dcdcdc", relief="groove")
