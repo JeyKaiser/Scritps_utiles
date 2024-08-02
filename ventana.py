@@ -10,8 +10,9 @@ import pandas as pd
 coleccion = ""
 archivo_salida = r'D:\JEFERSON STUDY\JO-System\JO-System-v.1.0\Status.xlsx'
 
-# Funciones para buscar PDFs
+"""________________rama creada en casa______________________________""" 
 
+# Funciones para buscar PDFs
 def conEntregableIdea(coleccion):    
     referencias_con_entregable_swim = []
 
