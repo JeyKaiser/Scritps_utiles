@@ -128,11 +128,13 @@ def ejecutar_programa(coleccion1, coleccion2):
     else:
         lbl_status.config(text="Seleccione al menos 1 opción y una colección.", fg="red")
 
+
+
 # Crear la ventana principal
 ventana = tk.Tk()
 ventana.title("Status Explosion")
-ventana.configure(bg="#D7DBDD")
-ventana.geometry("500x600")
+ventana.configure(bg="#D7DBDD") 
+ventana.geometry("500x400")
 
 # Estilo
 style = ttk.Style()
@@ -141,7 +143,7 @@ style.configure('TCheckbutton', font=('Helvetica', 12))
 style.configure('TLabel', font=('Helvetica', 12))
 
 # Frame para la selección de directorio
-frame_directorio = tk.Frame(ventana, bg='#DDE2E6', padx=10, pady=10, relief='solid', bd=1)
+frame_directorio = tk.Frame(ventana, bg='#D7DBDD', padx=10, pady=10, relief='solid', bd=1) 
 frame_directorio.pack(padx=10, pady=10)
 
 # Entradas para directorio1 y directorio2
@@ -162,8 +164,8 @@ btn_seleccionar_directorio2 = tk.Button(frame_directorio, text="Seleccionar Cole
 btn_seleccionar_directorio2.grid(row=1, column=0, pady=(5, 10))
 
 # Crear un frame para los checkboxes
-frame_checkboxes = tk.Frame(ventana, bg="#D7DBDD", padx=20, pady=20)
-frame_checkboxes.pack(side='top', pady=20, padx=(20, 0), fill='y')
+frame_checkboxes = tk.Frame(ventana, bg="#D7DBDD", padx=10, pady=10)     #morado
+frame_checkboxes.pack(side='top', pady=10, padx=(10, 0), fill='y')
 chk_state1 = tk.BooleanVar()
 chk_state2 = tk.BooleanVar()
 chk_state3 = tk.BooleanVar()
@@ -182,16 +184,16 @@ chk4 = tk.Checkbutton(frame_checkboxes, text="Sin Trazo", var=chk_state4, bg="#D
 chk4.pack(anchor="w")
 
 # Crear un frame para boton
-frame_buttons = tk.Frame(ventana, bg="#dcdcdc", relief="groove")
-frame_buttons.pack(pady=20, padx=20, fill='x')
+frame_buttons = tk.Frame(ventana, bg="#D7DBDD", relief="groove")
+frame_buttons.pack(pady=10, padx=10, fill='x')
 
 # Botón para buscar archivos
-btn_buscar = tk.Button(frame_buttons, text="Buscar", command=buscar_archivos, bg='#1C6EA4', fg='white')
+btn_buscar = tk.Button(frame_buttons, text="Buscar", command=buscar_archivos, bg='#1C6EA4', fg='white', width=20)
 btn_buscar.pack(pady=(10, 10))
 
 # Crear un frame para estado
 frame_message = ttk.Frame(ventana, padding=10, style='TFrame')
-frame_message.pack(side=tk.TOP, padx=(10,10), pady=(10,10))
+frame_message.pack(side=tk.TOP, padx=(10,10))
 
 # Crear una etiqueta para mostrar el estado de la ejecución
 lbl_status = tk.Label(text="- - - - - >   B I E N V E N I D O   < - - - - -", bg="#dddee6")
