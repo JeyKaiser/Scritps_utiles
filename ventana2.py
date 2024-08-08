@@ -91,7 +91,6 @@ def seleccionar_directorio(entry_widget, color):
         logging.error(f"Error al seleccionar directorio: {e}")
         messagebox.showerror("Error", f"Ha ocurrido un error al seleccionar el directorio: {e}")
 
-# Cambio: Eliminada la función guardar_directorio_en_global
 
 def buscar_archivos():
     entradaA = entrada_directorio1.get()
@@ -102,7 +101,7 @@ def buscar_archivos():
         lbl_status.config(text="Buscando en las colecciones seleccionadas...", fg="green")
         ejecutar_programa(entradaA, entradaB)
 
-# Cambio: ejecutar_programa ahora acepta parámetros
+
 def ejecutar_programa(coleccion1, coleccion2):    
     con_entregable = chk_state1.get()
     sin_entregable = chk_state2.get()
