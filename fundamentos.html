@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>FUNDAMENTOS DE JAVASCRIPT</h1>
+    <script>
+        var hola1="hola mundo"
+        //console.log(hola);         
+        let hello="hello world";
+        console.log(window);
+        console.log(window.hola1);
+        console.log(window.hello);
+        //ambito de bloque
+        var musica="rock";
+        console.log("variable antes del bloque: ", musica);
+
+        {
+        var musica ="pop"
+        console.log("variable dentro del bloque: ", musica);
+        }        
+        console.log("variable dentro del bloque: ", musica);  //vuelve a imprimir pop aunque este dentro del bloque por temas de elevacion(joisting)
+
+        let musica2="rock";
+        console.log("variable antes del bloque: ", musica2);
+
+        {
+        let musica2 ="pop"
+        console.log("variable dentro del bloque: ", musica2);
+        }        
+        console.log("variable dentro del bloque: ", musica2);   //ahora si imprime rock por estar usando ahora let, respetando el comportamiento de bloque
+
+        const PI= 3.1416;
+        const NUEVE=9;
+
+        let objeto={
+            nombre: "jefer",
+            edad: 30
+        }
+        console.log(objeto)
+
+        let colores=["blanco", "negro"]
+        console.log(colores)
+
+
+/*----CONSTRUCTOR
+Cuando String()se llama como función (sin new), retorna value a una cadena primitiva convertida . En particular, los valores de símbolos se convierten a "Symbol(description)", donde descriptiones la descripción del símbolo, en lugar de lanzar una excepción.   */
+    const a = new String("Hello world");    // a === "Hello world" is false
+    const b = String("Hello world");        // b === "Hello world" is true
+    a instanceof String;                    // is true
+    b instanceof String;                    // is false
+    typeof a;                               // "object"
+    typeof b;                               // "string"
+
+
+/*----String.fromCharCode()
+Crea una cadena a partir de una secuencia de valores Unicode.
+alt+72= h   alt+101= e ...               */
+    let str = String.fromCharCode(72, 101, 108, 108, 111);
+    console.log(str);           // Output: "Hello" 
+
+/*----String.fromCodePoint()
+ Crea una cadena a partir de una secuencia de puntos de código Unicode. Puede manejar caracteres que están fuera del rango BMP (Basic Multilingual Plane).  */
+    let str2 = String.fromCodePoint(9731, 9733, 9842, 0x2F804);
+    console.log(str2); // Output: "☃★♲你"
+
+/*----String.raw()
+Devuelve una cadena en la que las secuencias de escape (excepto las comillas y barras invertidas) se tratan como caracteres literales.  */
+    let filePath = String.raw`C:\Development\profile\aboutme.html`;
+    console.log(filePath);                          // Output: C:\Development\profile\aboutme.html
+
+    let multiLine = String.raw`Línea 1\nLínea 2`;
+    console.log(multiLine);                         // Output: Línea 1\nLínea 2
+
+
+/*------------Estos métodos son parte del prototipo de String, lo que significa que están disponibles en todas las instancias de cadenas en JavaScript.------------------*/
+
+/*----String.prototype.at()
+Retorna el carácter en la posición especificada. Acepta índices negativos.  */
+let str3 = "Hello";
+console.log(str3.at(1));                // "e"
+console.log(str3.at(-1));               // "o"
+
+
+/*----String.prototype.charAt()
+Retorna el carácter en la posición especificada.  */
+let str4 = "Hello";
+console.log(str4.charAt(1));            // "e"
+
+
+/*----DIFERENCIAS String.prototype.charAt()        String.prototype.at() 
+at() ofrece más flexibilidad con índices negativos y un comportamiento más consistente con otros métodos de array modernos, mientras que charAt() mantiene compatibilidad con código más antiguo.       */
+
+let str5 = "Hello";
+
+// Índices positivos (comportamiento similar)
+console.log(str5.at(1));            // "e"
+console.log(str5.charAt(1));        // "e"
+
+// Índices negativos
+console.log(str5.at(-1));           // "o"
+console.log(str5.charAt(-1));       // ""
+
+// Índices fuera de rango
+console.log(str5.at(10));            // undefined
+console.log(str5.charAt(10));       // ""
+
+
+/*----String.prototype.charCodeAt()
+Retorna el valor Unicode del carácter en la posición especificada.  */
+let str6 = "Hello";
+console.log(str6.charCodeAt(0));        // 72
+
+/*----String.prototype.codePointAt()
+Retorna el valor del punto de código Unicode del carácter en la posición especificada.  */
+let str7 = "😄";
+console.log(str7.codePointAt(0));       // 128516
+
+/*----String.prototype.concat()
+Combina el texto de dos o más cadenas y retorna una nueva cadena.  */
+let str8 = "Hello";
+let str9 = "World";
+console.log(str8.concat(" ", str9));        // "Hello World"
+
+/*tring.prototype.endsWith()
+Definición: Determina si una cadena termina con los caracteres de otra cadena.     */
+let str10 = "Hello World";
+console.log(str10.endsWith("World"));        // true
+console.log(str10.endsWith("Hello"));       // false
+
+
+
+
+    </script>
+</body>
+</html>
