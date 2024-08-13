@@ -76,7 +76,8 @@ Devuelve una cadena en la que las secuencias de escape (excepto las comillas y b
     console.log(multiLine);                         // Output: Línea 1\nLínea 2
 
 
-/*------------Estos métodos son parte del prototipo de String, lo que significa que están disponibles en todas las instancias de cadenas en JavaScript.------------------*/
+/* https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/String
+------------Estos métodos son parte del prototipo de String, lo que significa que están disponibles en todas las instancias de cadenas en JavaScript.------------------*/
 
 /*----String.prototype.at()
 Retorna el carácter en la posición especificada. Acepta índices negativos.  */
@@ -106,7 +107,7 @@ console.log(str5.charAt(-1));       // ""
 
 // Índices fuera de rango
 console.log(str5.at(10));            // undefined
-console.log(str5.charAt(10));       // ""
+console.log(str5.charAt(10));        // ""
 
 
 /*----String.prototype.charCodeAt()
@@ -125,11 +126,84 @@ let str8 = "Hello";
 let str9 = "World";
 console.log(str8.concat(" ", str9));        // "Hello World"
 
-/*tring.prototype.endsWith()
-Definición: Determina si una cadena termina con los caracteres de otra cadena.     */
+/*----String.prototype.endsWith()
+Determina si una cadena termina con los caracteres de otra cadena.     */
 let str10 = "Hello World";
 console.log(str10.endsWith("World"));        // true
 console.log(str10.endsWith("Hello"));       // false
+
+/*----String.prototype.includes()
+Determina si una cadena contiene los caracteres de otra cadena.     */
+let str11 = "Hello world";
+console.log(str11.includes("world"));       // true
+console.log(str11.includes("bye"));         // false
+
+/*----String.prototype.indexOf()
+Retorna el índice de la primera ocurrencia de una subcadena especificada.     */
+let str12 = "Hello world";
+console.log(str12.indexOf("world"));        // 6
+console.log(str12.indexOf("bye"));          // -1
+
+/*----String.prototype.isWellFormed()
+Comprueba si la cadena contiene solo puntos de código Unicode bien formados.  
+Este método fue propuesto como parte de una especificación para ECMAScript, pero aún no ha sido ampliamente implementado o adoptado. Es posible que lo haya confundido con una propuesta o con una característica experimental.  
+    console.log("ABC".isWellFormed());          // true
+    console.log("\uD800".isWellFormed());       // false (surrogate sin par)
+*/
+
+/*----String.prototype.lastIndexOf()
+Retorna el índice de la última ocurrencia de una subcadena especificada.    */
+let str13 = "canal canal";
+console.log(str13.lastIndexOf("canal"));         // 6
+
+/*----String.prototype.localeCompare()
+Compara dos cadenas en el orden de clasificación actual del entorno local.*/
+console.log("a".localeCompare("b"));                    // -1
+console.log("-1 Indica que a esta antes que b")         
+console.log("b".localeCompare("a" ));                   // 1  
+console.log("1 Indica que b va despues de a")           
+console.log("a".localeCompare("a"));                    // 0
+console.log("0 Indica que a es igual a a")
+//----Ordenacion de un array
+let frutas = ['manzana', 'banana', 'cereza', 'dátil'];
+frutas.sort((a, b) => a.localeCompare(b, 'es'));
+console.log(frutas); // ['banana', 'cereza', 'dátil', 'manzana']
+//----Ordenacion de un array
+// Ignorar mayúsculas/minúsculas
+console.log('a'.localeCompare('A', undefined, { sensitivity: 'base' }));    // 0
+console.log("0: Indica que 'a' y 'A' se consideran iguales en esta comparación.")
+
+// Considerar mayúsculas/minúsculas
+console.log('a'.localeCompare('A', undefined, { sensitivity: 'case' }));    // -1
+console.log("-1: Indica que 'a' se considera que va antes que 'A' en el orden.")
+
+
+/*----String.prototype.match()
+Recupera el resultado de hacer coincidir una cadena con una expresión regular.*/
+let str14 = "The rain in SPAIN stays mainly in the plain";
+console.log(str14.match(/ain/g));            // ['ain', 'ain', 'ain']
+
+/*----String.prototype.matchAll()
+Retorna un iterador de todos los resultados de hacer coincidir una cadena con una expresión regular.    */
+let str15 = "test1test2";
+let regexp = /t(e)(st(\d?))/g;
+let array = [...str15.matchAll(regexp)];
+console.log(array[0]);                 // ["test1", "e", "st1", "1"]
+console.log(array[1]);                 // ["test2", "e", "st2", "2"]
+
+/*----*/
+
+/*----*/
+
+/*----*/
+
+
+
+
+
+
+
+
 
 
 
