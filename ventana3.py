@@ -6,13 +6,9 @@ import logging
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Cambio: Eliminadas las variables globales coleccion1 y coleccion2
-
-# Cambio: Archivo de salida ahora es relativo al directorio del usuario
 archivo_salida = os.path.join(os.path.expanduser('~'), 'Desktop', 'Status.xlsx')
 
-# Funciones para buscar PDFs
+
 def conEntregableIdea(coleccion):    
     referencias_con_entregable = []
     try:
@@ -22,13 +18,19 @@ def conEntregableIdea(coleccion):
                     ultimo_nombre_carpeta2 = os.path.basename(root)
                     if ultimo_nombre_carpeta2.startswith("#"):
                         referencias_con_entregable.append(ultimo_nombre_carpeta2)
-                        break        
+                        break
+        
+        # Ordenar las referencias en orden numérico basado en el número después del '#'
+        referencias_con_entregable.sort(key=lambda x: int(x.split('#')[1].split()[0]))
+
+        # Crear el DataFrame con las referencias ordenadas
         df = pd.DataFrame(referencias_con_entregable, columns=['coleccion -Con Entregable'])
         logging.info(f"Se encontraron {len(referencias_con_entregable)} referencias con entregable")
         return df        
     except Exception as e:
         logging.error(f"Error en conEntregableIdea: {e}")
         return pd.DataFrame(columns=['coleccion -Con Entregable'])
+
 
 def sinEntregableIdea(coleccion):    
     referencias_sin_entregable = []
@@ -38,6 +40,10 @@ def sinEntregableIdea(coleccion):
                 ultimo_nombre_carpeta = os.path.basename(root)
                 if ultimo_nombre_carpeta.startswith("#"):
                     referencias_sin_entregable.append(ultimo_nombre_carpeta)
+
+        # Ordenar las referencias en orden numérico basado en el número después del '#'
+        referencias_sin_entregable.sort(key=lambda x: int(x.split('#')[1].split()[0]))   
+        
         df = pd.DataFrame(referencias_sin_entregable, columns=['coleccion -Sin Entregable'])
         logging.info(f"Se encontraron {len(referencias_sin_entregable)} referencias sin entregable")
         return df
@@ -55,6 +61,9 @@ def conTrazo(coleccion):
                     if ultimo_nombre_carpeta2.startswith("#"):
                         referencias_con_trazo.append(ultimo_nombre_carpeta2)
                         break  
+        # Ordenar las referencias en orden numérico basado en el número después del '#'
+        referencias_con_trazo.sort(key=lambda x: int(x.split('#')[1].split()[0]))
+                        
         df = pd.DataFrame(referencias_con_trazo, columns=['coleccion -Con trazo'])
         logging.info(f"Se encontraron {len(referencias_con_trazo)} referencias con trazo")
         return df
@@ -69,7 +78,11 @@ def sinTrazo(coleccion):
             if not any(file.endswith('.amkx') for file in files):
                 ultimo_nombre_carpeta = os.path.basename(root)
                 if ultimo_nombre_carpeta.startswith("#"):
-                    referencias_sin_trazo.append(ultimo_nombre_carpeta) 
+                    referencias_sin_trazo.append(ultimo_nombre_carpeta)
+
+        # Ordenar las referencias en orden numérico basado en el número después del '#'
+        referencias_sin_trazo.sort(key=lambda x: int(x.split('#')[1].split()[0]))
+
         df = pd.DataFrame(referencias_sin_trazo, columns=['coleccion -Sin Trazo'])
         logging.info(f"Se encontraron {len(referencias_sin_trazo)} referencias sin trazo")
         return df
@@ -95,11 +108,18 @@ def seleccionar_directorio(entry_widget, color):
 def buscar_archivos():
     entradaA = entrada_directorio1.get()
     entradaB = entrada_directorio2.get()
+    
     if not entradaA and not entradaB:        
         lbl_status.config(text="Es necesario elegir al menos una colección o carpeta.", fg="red")
-    else:        
-        lbl_status.config(text="Buscando en las colecciones seleccionadas...", fg="green")
-        ejecutar_programa(entradaA, entradaB)
+    else:
+        if entradaA == entradaB:
+            respuesta = messagebox.askyesno("Confirmar", "Las colecciones son iguales. ¿Deseas continuar?")
+            if respuesta:
+                #lbl_status.config(text="Buscando en las colecciones seleccionadas...", fg="green")
+                ejecutar_programa(entradaA, entradaB)            
+        else:
+            #lbl_status.config(text="Buscando en las colecciones seleccionadas...", fg="green")
+            ejecutar_programa(entradaA, entradaB)
 
 
 def ejecutar_programa(coleccion1, coleccion2):    
@@ -108,25 +128,41 @@ def ejecutar_programa(coleccion1, coleccion2):
     con_trazo = chk_state3.get()
     sin_trazo = chk_state4.get()
     
-    dfs = []
-    for coleccion in [coleccion1, coleccion2]:
-        if coleccion:
+    dfs1 = []
+    for coleccionA in [coleccion1]:
+        if coleccionA:
             if con_entregable:
-                dfs.append(conEntregableIdea(coleccion))
+                dfs1.append(conEntregableIdea(coleccionA))
             if sin_entregable:
-                dfs.append(sinEntregableIdea(coleccion))
+                dfs1.append(sinEntregableIdea(coleccionA))
             if con_trazo:
-                dfs.append(conTrazo(coleccion))
+                dfs1.append(conTrazo(coleccionA))
             if sin_trazo:
-                dfs.append(sinTrazo(coleccion))
-    
-    if dfs:
-        df_combined = pd.concat(dfs, axis=1)
-        df_combined.to_excel(archivo_salida, index=False, sheet_name='Resultados')
+                dfs1.append(sinTrazo(coleccionA))       
+
+    dfs2 = []
+    for coleccionB in [coleccion2]:
+        if coleccionB:
+            if con_entregable:
+                dfs2.append(conEntregableIdea(coleccionB))
+            if sin_entregable:
+                dfs2.append(sinEntregableIdea(coleccionB))
+            if con_trazo:
+                dfs2.append(conTrazo(coleccionB))
+            if sin_trazo:
+                dfs2.append(sinTrazo(coleccionB))
+
+    if dfs1 and dfs2:
+        df_combined1 = pd.concat(dfs1, axis=1)
+        df_combined2 = pd.concat(dfs2, axis=1)
+        # Crear un escritor de Excel para escribir múltiples hojas en un solo archivo
+        with pd.ExcelWriter(archivo_salida, engine='openpyxl') as writer:
+            df_combined1.to_excel(writer, index=False, sheet_name='Coleccion 1')
+            df_combined2.to_excel(writer, index=False, sheet_name='Coleccion 2')
+        
         lbl_status.config(text=f"Status generado con éxito en {archivo_salida}", fg="green")
     else:
         lbl_status.config(text="Seleccione al menos 1 opción y una colección.", fg="red")
-
 
 
 # Crear la ventana principal

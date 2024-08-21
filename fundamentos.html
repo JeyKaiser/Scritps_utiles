@@ -177,7 +177,6 @@ console.log("0: Indica que 'a' y 'A' se consideran iguales en esta comparación.
 console.log('a'.localeCompare('A', undefined, { sensitivity: 'case' }));    // -1
 console.log("-1: Indica que 'a' se considera que va antes que 'A' en el orden.")
 
-
 /*----String.prototype.match()
 Recupera el resultado de hacer coincidir una cadena con una expresión regular.*/
 let str14 = "The rain in SPAIN stays mainly in the plain";
@@ -191,9 +190,59 @@ let array = [...str15.matchAll(regexp)];
 console.log(array[0]);                 // ["test1", "e", "st1", "1"]
 console.log(array[1]);                 // ["test2", "e", "st2", "2"]
 
-/*----*/
+/*----String.prototype.normalize()
+Normaliza una cadena de texto según una forma de normalización Unicode especificada. 
+NFC, NFD, NFKC,NFKD   */
+let string = '\u00F1';                      // ñ
+console.log(string.normalize('NFC'));       // ñ
+    const name1 = '\u0041\u006d\u00e9\u006c\u0069\u0065';
+    const name2 = '\u0041\u006d\u0065\u0301\u006c\u0069\u0065';
+    console.log(`${name1}, ${name2}`);                  //"Amélie, Amélie"
+    console.log(name1 === name2);                       //false
+    console.log(name1.length === name2.length);         //false
+    const name1NFC = name1.normalize('NFC');
+    const name2NFC = name2.normalize('NFC');
+    console.log(`${name1NFC}, ${name2NFC}`);            //"Amélie, Amélie"
+    console.log(name1NFC === name2NFC);                 //true
+    console.log(name1NFC.length === name2NFC.length);   //true
+    
+
+/*----String.prototype.padStart()
+Rellena la cadena actual desde el principio con una cadena dada (repetida, si es necesario) para que la cadena resultante alcance una longitud determinada*/
+let str16 = '5';
+console.log(str16.padStart(3, '0'));              // "005"
+
+/*----String.prototype.padEnd()
+Rellena la cadena actual con una cadena dada (repetida, si es necesario) para que la cadena resultante alcance una longitud determinada.    */
+let str17 = 'Hola';
+console.log(str17.padEnd(10, '.'));             // "Hola......"
+
+/*----String.prototype.repeat()
+Construye y devuelve una nueva cadena que contiene el número especificado de copias de la cadena en la cual fue llamada.        */
+let str18 = 'Ha';
+console.log(str18.repeat(3));                   // "HaHaHa"
+
+/*----String.prototype.replace()
+Devuelve una nueva cadena con algunas o todas las coincidencias de un patrón reemplazadas por un reemplazo */
+let str19 = 'El gato es negro';
+console.log(str19.replace('gato', 'perro'));    // "El perro es negro"
+
+/*----String.prototype.search()
+Ejecuta una búsqueda de una coincidencia entre una expresión regular y esta cadena   */
+let str20 = 'Hola Mundo';
+console.log(str20.search(/Mundo/));             // 5
 
 /*----*/
+
+
+/*----*/
+
+
+/*----*/
+
+
+/*----*/
+
 
 /*----*/
 
